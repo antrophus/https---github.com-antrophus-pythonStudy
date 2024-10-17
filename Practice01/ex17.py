@@ -1,0 +1,25 @@
+'''[ex17.py] 
+키보드에서 정수로 된 돈의 액수를 입력받아 50000원권, 10000원권, 5000원권, 1000원권, 
+500원동전, 100원동전, 50원동전, 1원동전 각 몇 개로 변환 되는지 작성 하세요.  
+'''
+amount  = int(input("금액: "))
+oman    = int(amount/50000)
+man     = int(amount%50000/10000)
+ocheon  = int(amount%50000%10000/5000)
+cheon   = int(amount%50000%10000%5000/1000)
+obac    = int(amount%50000%10000%5000%1000/500)
+bac     = int(amount%50000%10000%5000%1000%500/100)
+osip    = int(amount%50000%10000%5000%1000%500%100/50)
+sip     = int(amount%50000%10000%5000%1000%500%100%50/10)
+oh      = int(amount%50000%10000%5000%1000%500%100%50%10/5)
+il      = int(amount%50000%10000%5000%1000%500%100%50%10%5/1)
+print(f"50000원 {oman} 개")
+print(f"10000원 {man} 개")
+print(f"5000원 {ocheon} 개")
+print(f"1000원 {cheon} 개")
+print(f"500원 {obac} 개")
+print(f"100원 {bac} 개")
+print(f"50원 {osip} 개")
+print(f"10원 {sip} 개")
+print(f"5원 {oh} 개")
+print(f"1원 {il} 개")
