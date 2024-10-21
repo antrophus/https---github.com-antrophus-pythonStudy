@@ -1,6 +1,7 @@
 #0.import
 import mysql.connector
 
+
 #1.연결/컨넥션 얻기
 
 #2.커서생성
