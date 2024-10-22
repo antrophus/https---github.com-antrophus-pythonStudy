@@ -67,7 +67,6 @@ def load_phonebook():
     except Error as e:
         print(f"데이터베이스 오류: {e}")
 
-
 #2. 전화번호 등록 함수 
 def add_person():
     name = input("이름을 입력하세요: ")
@@ -94,7 +93,6 @@ def add_person():
     except Error as e:
         print(f"데이터베이스 오류: {e}")
 
-
 #3. 전화번호 삭제 함수
 def delete_person():
     try:
@@ -116,7 +114,7 @@ def delete_person():
                 resultset = cursor.fetchall()
                 #5. 결과 출력
                 person_list = []
-                index = 1
+                index = 1                       # index 번호 생성
                 for row in resultset:
                     person_vo = {
                         "person_id": row[0],
@@ -125,17 +123,17 @@ def delete_person():
                         "company": row[3]
                     }
                     person_list.append(person_vo)
-                    if len(person_vo) == 4:  # 이름, 휴대전화, 회사전화번호
+                    if len(person_vo) == 4:     # persin_id, 이름, 휴대전화, 회사전화번호 중에 person_id 빼고 나머지만 출력
                         name = person_vo["name"]
                         hp = person_vo["hp"]
                         company = person_vo["company"]
                         print(f"{index}.\t{name}\t{hp}\t{company}")
                         index += 1
 
-                # 사용자가 인덱스 번호를 입력
+                # 삭제할 인덱스 번호를 입력
                 index_to_delete = int(input("삭제할 번호를 입력하세요: "))
 
-                # 인덱스를 기반으로 person_id 추출
+                # 인덱스에 해당하는 person_id 추출
                 if 1 <= index_to_delete <= len(person_list):
                     person_id = person_list[index_to_delete - 1]["person_id"]
 
@@ -145,7 +143,7 @@ def delete_person():
                         delete from person
                         where person_id = %s
                     """
-                    #--바인딩(튜플)
+                    #--바인딩(튜플) ,찍기
                     data = (person_id,)
                     #--실행
                     cursor.execute(query, data) #임시 반영
@@ -159,7 +157,7 @@ def delete_person():
         print(f"데이터베이스 오류: {e}")
         
 #4. 전화번호 검색 함수
-'''
+''' # 디비로부터 데이터를 다 받아와서 리스트 만든 후 검색하는 방법(비효율적임) #
 def search_person():
     try:
         search_name = input(">이름: ").strip()
@@ -204,6 +202,7 @@ def search_person():
     except Exception as e:
         print(f"검색 실패: {e}")
 ''' 
+# db에서 부터 검색된 자료를 받아와서 출력(효율적임)
 def search_person():
     try:
         search_name = input(">이름: ").strip()
@@ -221,7 +220,7 @@ def search_person():
                     where name like %s
                 """
                 #--바인딩(튜플)
-                search_person = "%" + search_name + "%"  # 부분 일치 검색
+                search_person = "%" + search_name + "%"  # 부분 검색 쿼리문법
                 #--실행
                 cursor.execute(query, (search_person,))
                 #4. 쿼리 결과 받아오기
